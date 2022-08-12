@@ -1,6 +1,11 @@
 # terraform-demo
 Terraform demo
 
+## Setup
+```zsh
+brew install terraform
+```
+
 ## Login
 ```zsh
 gcloud auth application-default login --project $PROJECT_ID
