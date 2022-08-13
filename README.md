@@ -30,4 +30,4 @@ gsutil cp index.html gs://ramen-mania.net/
 
 ## References
 - https://cloud.google.com/docs/terraform/resource-management/store-state
-- https://github.com/gruntwork-io/terraform-google-static-assets/tree/master/modules/cloud-storage-static-website
+- https://medium.com/swlh/setup-a-static-website-cdn-with-terraform-on-gcp-23c6937382c6
