@@ -23,6 +23,11 @@ terraform plan
 terraform apply
 ```
 
+## Update index.html
+```zsh
+gsutil cp index.html gs://ramen-mania.net/
+```
+
 ## References
 - https://cloud.google.com/docs/terraform/resource-management/store-state
 - https://github.com/gruntwork-io/terraform-google-static-assets/tree/master/modules/cloud-storage-static-website
