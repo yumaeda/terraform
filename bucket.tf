@@ -12,6 +12,10 @@ provider "google" {
 resource "google_storage_bucket" "website" {
     name     = var.website_domain_name
     location = var.region
+    website {
+      main_page_suffix = "index.html"
+      not_found_page   = "404.html"
+  }
 }
 
 # Make new objects public
