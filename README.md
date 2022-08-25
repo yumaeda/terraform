@@ -28,6 +28,16 @@ terraform apply
 gsutil cp index.html gs://ramen-mania.net/
 ```
 
+## Upload images
+```zsh
+gsutil cp *.webp gs://ramen-mania.net/images/
+```
+
+## Invalidate Cloud CDN cache
+```zsh
+gcloud compute url-maps invalidate-cdn-cache website-url-map --path "/*" --async
+```
+
 ## Destroy
 - GCS buckets will not be removed since they have files.
 ```zsh
