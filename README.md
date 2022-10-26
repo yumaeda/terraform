@@ -1,5 +1,5 @@
-# terraform-demo
-Terraform demo
+# terraform
+Contains Terraform configuration files
 
 ## Setup
 ```zsh
