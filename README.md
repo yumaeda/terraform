@@ -28,14 +28,20 @@ terraform apply
 gsutil cp index.html gs://ramen-mania.net/
 ```
 
+## Set cache-control meta
+- By default, Cloud Storage set max-age to `3600`.
+```zsh
+gsutil setmeta -h "Cache-Control:public, max-age=60" gs://ramen-mania.net/index.html 
+```
+
 ## Upload images
 ```zsh
 gsutil cp *.webp gs://ramen-mania.net/images/
 ```
 
-## Invalidate Cloud CDN cache
+## Get detail of index.html
 ```zsh
-gcloud compute url-maps invalidate-cdn-cache website-url-map --path "/*" --async
+gsutil ls -L gs://ramen-mania.net/index.html
 ```
 
 ## Destroy
