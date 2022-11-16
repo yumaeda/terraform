@@ -32,7 +32,12 @@ gsutil cp index.html gs://ramen-mania.net/
 - By default, Cloud Storage set max-age to `3600`.
 - Use `Cache-Control: no-store` to indicate that the file must not be cached for subsequent requests.
 ```zsh
-gsutil setmeta -h "Cache-Control:public, max-age=60" gs://ramen-mania.net/index.html 
+gsutil setmeta -h "Cache-control:public, max-age=60" gs://ramen-mania.net/index.html 
+```
+
+## Disable cache for all the files
+```zsh
+gsutil setmeta -r -h "Cache-control:no-cache" gs://ramen-mania.net
 ```
 
 ## Upload images
