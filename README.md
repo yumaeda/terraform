@@ -28,16 +28,11 @@ terraform apply
 gsutil cp index.html gs://ramen-mania.net/
 ```
 
-## Set cache-control meta
+## Setting the Cache-Control header for GCS bucket
 - By default, Cloud Storage set max-age to `3600`.
-- Use `Cache-Control: no-store` to indicate that the file must not be cached for subsequent requests.
+- Instructs GCS not to cache contents, but instructs CDN to cache contents for 10 days.
 ```zsh
-gsutil setmeta -h "Cache-control:public, max-age=60" gs://ramen-mania.net/index.html 
-```
-
-## Disable cache for all the files
-```zsh
-gsutil setmeta -r -h "Cache-control:no-cache" gs://ramen-mania.net
+gsutil setmeta -r -h "Cache-Control: no-store, max-age=864000" gs://ramen-mania.net
 ```
 
 ## Upload images
