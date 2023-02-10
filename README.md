@@ -51,6 +51,26 @@ gsutil ls -L gs://ramen-mania.net/index.html
 terraform destroy
 ```
 
+## Misc
+- Get a list of enabled services
+```zsh
+gcloud services list
+```
+- Get an unique identifier of the workload identity pool
+```zsh
+gcloud iam workload-identity-pools describe "github-pool" --location="global" --format="value(name)"
+```
+- Get an unique identifier of the provider
+```zsh
+gcloud iam workload-identity-pools providers describe "github-provider" --location="global" --workload-identity-pool="github-pool" --format="
+value(name)"
+```
+- Print out the permissions
+```zsh
+gcloud projects get-iam-policy $PROJECT_ID --flatten="bindings[].members"   
+```
+
 ## References
+- https://gist.github.com/palewire/12c4b2b974ef735d22da7493cf7f4d37
 - https://cloud.google.com/docs/terraform/resource-management/store-state
 - https://medium.com/swlh/setup-a-static-website-cdn-with-terraform-on-gcp-23c6937382c6
