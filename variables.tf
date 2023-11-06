@@ -13,3 +13,15 @@ variable "region" {
     type        = string
     default     = "us-central1"
 }
+
+variable "zone" {
+    description = "Google Cloud zone"
+    type        = string
+    default     = "us-central1-a"
+}
+
+variable "vpc_name" {
+    description = "VPC name"
+    type        = string
+    default     = "default"
+}

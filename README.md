@@ -74,3 +74,5 @@ gcloud projects get-iam-policy $PROJECT_ID --flatten="bindings[].members"
 - https://gist.github.com/palewire/12c4b2b974ef735d22da7493cf7f4d37
 - https://cloud.google.com/docs/terraform/resource-management/store-state
 - https://medium.com/swlh/setup-a-static-website-cdn-with-terraform-on-gcp-23c6937382c6
+- https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance
+- https://medium.com/google-cloud/terraform-on-google-cloud-v1-2-deploying-postgresql-with-github-actions-e7009cb04d22
