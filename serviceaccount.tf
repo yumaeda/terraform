@@ -38,6 +38,12 @@ resource "google_service_account_iam_member" "github_workload_identity_nginx_gcs
     member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github_pool.name}/attribute.repository/yumaeda/nginx-gcs-proxy"
 }
 
+resource "google_service_account_iam_member" "github_workload_identity_sakaba_api" {
+    service_account_id = google_service_account.github.id
+    role               = "roles/iam.workloadIdentityUser"
+    member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github_pool.name}/attribute.repository/yumaeda/sakaba-api"
+}
+
 resource "google_service_account_iam_member" "github_workload_identity_sakaba_front" {
     service_account_id = google_service_account.github.id
     role               = "roles/iam.workloadIdentityUser"
