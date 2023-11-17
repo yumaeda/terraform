@@ -23,6 +23,21 @@ terraform plan
 terraform apply
 ```
 
+## Get VPC network self link
+```zsh
+gcloud compute networks describe $NETWORK_NAME --format='value(selfLink)'
+```
+
+## Get subnet self link
+```zsh
+gcloud compute networks subnets describe $SUBNET_NAME --region=us-central1 --format='value(selfLink)'
+```
+
+## Apply the specified resource
+```zsh
+terraform apply -target=$RESOURCE_TYPE.$RESOURCE_NAME
+```
+
 ## Update index.html
 ```zsh
 gsutil cp index.html gs://ramen-mania.net/
@@ -50,6 +65,10 @@ gsutil ls -L gs://ramen-mania.net/index.html
 ```zsh
 terraform destroy
 ```
+### Destroy the specified resource
+```zsh
+terraform destroy -target={RESOURCE_TYPE}.{NAME}
+```
 
 ## Misc
 - Get a list of enabled services
@@ -71,6 +90,7 @@ gcloud projects get-iam-policy $PROJECT_ID --flatten="bindings[].members"
 ```
 
 ## References
+- https://medium.com/google-cloud/gcp-how-to-deploy-cloud-nat-with-terraform-44745a4daaa8
 - https://gist.github.com/palewire/12c4b2b974ef735d22da7493cf7f4d37
 - https://cloud.google.com/docs/terraform/resource-management/store-state
 - https://medium.com/swlh/setup-a-static-website-cdn-with-terraform-on-gcp-23c6937382c6

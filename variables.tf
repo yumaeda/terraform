@@ -25,3 +25,11 @@ variable "vpc_name" {
     type        = string
     default     = "default"
 }
+
+variable "network" {
+  description = "The VPC network self link"
+}
+
+variable "subnet" {
+  description = "The subnet self link"
+}
