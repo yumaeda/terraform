@@ -5,12 +5,6 @@ resource "google_compute_router" "router" {
   region  = var.region
 }
 
-resource "google_compute_address" "nat" {
-  name   = "nat-ip"
-  region = google_compute_router.router.region
-  network_tier = "PREMIUM"
-}
-
 resource "google_compute_router_nat" "nat" {
   name   = "gke-nat"
   router = google_compute_router.router.name

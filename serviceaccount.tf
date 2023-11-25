@@ -1,4 +1,4 @@
-resource "google_project_service" "project" {
+resource "google_project_service" "iamcredentials_service" {
     project                    = var.project
     service                    = "iamcredentials.googleapis.com"
     disable_dependent_services = true
@@ -10,9 +10,10 @@ resource "google_service_account" "github" {
     display_name = "GitHub Service Account"
 }
 
+# Need to change workload_identity_pool_id on every terraform apply
 resource "google_iam_workload_identity_pool" "github_pool" {
     project                   = var.project
-    workload_identity_pool_id = "github-pool"
+    workload_identity_pool_id = "github-pool-1"
     display_name              = "GitHub Pool"
     description               = "Workload Identity Pool for GitHub Action Roles"
 }

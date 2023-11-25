@@ -2,67 +2,64 @@
 Contains Terraform configuration files
 
 ## Preparation
-### Enable APIs
-```zsh
-gcloud services enable iap.googleapis.com
-```
-```zsh
-gcloud services enable container.googleapis.com
-```
 ### Install Terraform
 ```zsh
 brew install terraform
 ```
+### Export project ID
+```zsh
+export GOOGLE_PROJECT={PROJECT_ID}
+```
 ### Login to GCP
 ```zsh
-gcloud auth application-default login --project $PROJECT_ID
+gcloud auth application-default login --project $GOOGLE_PROJECT
 ```
 ### Configure Terraform to store state in Cloud Storage bucket
 ```zsh
-export GOOGLE_PROJECT=$PROJECT_ID
 terraform init
+```
+### Enable services
+```zsh
+gcloud services enable iap.googleapis.com container.googleapis.com
+```
+```zsh
+gcloud services list
 ```
 
 &nbsp;
 
-## Plan
+## Commands
+### Plan
 ```zsh
 terraform plan
 ```
-
-&nbsp;
-
-## Apply
+### Apply
 ```zsh
 terraform apply
 ```
-### Apply the specified resource
+#### Apply only the specified resource
 ```zsh
 terraform apply -target=$RESOURCE_TYPE.$RESOURCE_NAME
 ```
-
-&nbsp;
-
-## Destroy
-- GCS buckets will not be removed since they have files.
+### Destroy
 ```zsh
 terraform destroy
 ```
-### Destroy the specified resource
+#### Destroy only the specified resource
 ```zsh
 terraform destroy -target={RESOURCE_TYPE}.{NAME}
 ```
 
 &nbsp;
 
-## Confirm that k8s node can reach the internet
+## Testing Public NAT
 ### Get a list of k8s nodes
 ```zsh
 gcloud compute instances list
 ```
 ### Connect to the node
 ```zsh
-gcloud compute ssh $NODE_NAME \
+gcloud compute ssh {NODE_NAME} \
     --zone us-central1-a \
     --tunnel-through-iap
 ```
@@ -72,7 +69,7 @@ pgrep '^kube-dns$'
 ```
 ### Access the container
 ```zsh
-sudo nsenter --target $PROCESS_ID --net /bin/bash
+sudo nsenter --target $GOOGLE_PROJECT --net /bin/bash
 ```
 ### From `kube-dns`, attempt to connect to the internet
 ```zsh
@@ -82,17 +79,13 @@ curl example.com
 &nbsp;
 
 ## Misc
-- Get a list of enabled services
-```zsh
-gcloud services list
-```
 - Get an unique identifier of the workload identity pool
 ```zsh
-gcloud iam workload-identity-pools describe "github-pool" --location="global" --format="value(name)"
+gcloud iam workload-identity-pools describe "github" --location="global" --format="value(name)"
 ```
 - Get an unique identifier of the provider
 ```zsh
-gcloud iam workload-identity-pools providers describe "github-provider" --location="global" --workload-identity-pool="github-pool" --format="
+gcloud iam workload-identity-pools providers describe "github" --location="global" --workload-identity-pool="github" --format="
 value(name)"
 ```
 - Print out the permissions
