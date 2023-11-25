@@ -19,3 +19,9 @@ variable "zone" {
     type        = string
     default     = "us-central1-a"
 }
+
+variable "vpc_name" {
+    description = "Google VPN"
+    type        = string
+    default     = "default"
+}
