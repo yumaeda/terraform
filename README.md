@@ -1,72 +1,47 @@
 # terraform
 Contains Terraform configuration files
 
-## Enable APIs
+## Preparation
+### Enable APIs
 ```zsh
 gcloud services enable iap.googleapis.com
 ```
 ```zsh
 gcloud services enable container.googleapis.com
 ```
-
-## Setup
+### Install Terraform
 ```zsh
 brew install terraform
 ```
-
-## Login
+### Login to GCP
 ```zsh
 gcloud auth application-default login --project $PROJECT_ID
 ```
-
-## Configure Terraform to store state in Cloud Storage bucket
+### Configure Terraform to store state in Cloud Storage bucket
 ```zsh
 export GOOGLE_PROJECT=$PROJECT_ID
 terraform init
+```
+
+&nbsp;
+
+## Plan
+```zsh
 terraform plan
 ```
 
-## If the plan looks good
+&nbsp;
+
+## Apply
 ```zsh
 terraform apply
 ```
-
-## Get VPC network self link
-```zsh
-gcloud compute networks describe $NETWORK_NAME --format='value(selfLink)'
-```
-
-## Get subnet self link
-```zsh
-gcloud compute networks subnets describe $SUBNET_NAME --region=us-central1 --format='value(selfLink)'
-```
-
-## Apply the specified resource
+### Apply the specified resource
 ```zsh
 terraform apply -target=$RESOURCE_TYPE.$RESOURCE_NAME
 ```
 
-## Update index.html
-```zsh
-gsutil cp index.html gs://ramen-mania.net/
-```
-
-## Setting the Cache-Control header for GCS bucket
-- By default, Cloud Storage set max-age to `3600`.
-- Instructs GCS not to cache contents, but instructs CDN to cache contents for 10 days.
-```zsh
-gsutil setmeta -r -h "Cache-Control: no-store, max-age=864000" gs://ramen-mania.net
-```
-
-## Upload images
-```zsh
-gsutil cp *.webp gs://ramen-mania.net/images/
-```
-
-## Get detail of index.html
-```zsh
-gsutil ls -L gs://ramen-mania.net/index.html
-```
+&nbsp;
 
 ## Destroy
 - GCS buckets will not be removed since they have files.
@@ -77,6 +52,34 @@ terraform destroy
 ```zsh
 terraform destroy -target={RESOURCE_TYPE}.{NAME}
 ```
+
+&nbsp;
+
+## Confirm that k8s node can reach the internet
+### Get a list of k8s nodes
+```zsh
+gcloud compute instances list
+```
+### Connect to the node
+```zsh
+gcloud compute ssh $NODE_NAME \
+    --zone us-central1-a \
+    --tunnel-through-iap
+```
+### Find the process ID of the `kube-dns` container
+```zsh
+pgrep '^kube-dns$'
+```
+### Access the container
+```zsh
+sudo nsenter --target $PROCESS_ID --net /bin/bash
+```
+### From `kube-dns`, attempt to connect to the internet
+```zsh
+curl example.com
+```
+
+&nbsp;
 
 ## Misc
 - Get a list of enabled services
@@ -96,6 +99,30 @@ value(name)"
 ```zsh
 gcloud projects get-iam-policy $PROJECT_ID --flatten="bindings[].members"   
 ```
+
+&nbsp;
+
+## Deploy ramen-mania.net
+### Update index.html
+```zsh
+gsutil cp index.html gs://ramen-mania.net/
+```
+### Setting the Cache-Control header for GCS bucket
+- By default, Cloud Storage set max-age to `3600`.
+- Instructs GCS not to cache contents, but instructs CDN to cache contents for 10 days.
+```zsh
+gsutil setmeta -r -h "Cache-Control: no-store, max-age=864000" gs://ramen-mania.net
+```
+### Upload images
+```zsh
+gsutil cp *.webp gs://ramen-mania.net/images/
+```
+### Get detail of index.html
+```zsh
+gsutil ls -L gs://ramen-mania.net/index.html
+```
+
+&nbsp;
 
 ## References
 - https://cloud.google.com/nat/docs/gke-example#terraform_3

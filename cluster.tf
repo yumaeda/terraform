@@ -10,23 +10,16 @@ resource "google_container_cluster" "primary" {
   remove_default_node_pool = true
   deletion_protection      = false
 
-  private_cluster_config {
-    master_ipv4_cidr_block  = "172.16.0.0/28"
-    enable_private_endpoint = true
-    enable_private_nodes    = true
-  }
-
-  ip_allocation_policy {
-  }
-
-  master_authorized_networks_config {
+  node_config {
+    machine_type = "e2-micro"
   }
 }
 
 resource "google_container_node_pool" "primary_nodes" {
-  name     = "sakabas-node-pool"
-  location = var.zone
-  cluster  = google_container_cluster.primary.name
+  name       = "sakabas-node-pool"
+  location   = var.zone
+  cluster    = google_container_cluster.primary.name
+  node_count = 1
 
   node_config {
     preemptible  = true
