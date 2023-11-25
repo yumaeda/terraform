@@ -1,6 +1,14 @@
 # terraform
 Contains Terraform configuration files
 
+## Enable APIs
+```zsh
+gcloud services enable iap.googleapis.com
+```
+```zsh
+gcloud services enable container.googleapis.com
+```
+
 ## Setup
 ```zsh
 brew install terraform
