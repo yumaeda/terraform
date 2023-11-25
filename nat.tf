@@ -1,8 +1,3 @@
-resource "google_compute_project_default_network_tier" "default" {
-  project = var.project
-  network_tier = "STANDARD"
-}
-
 resource "google_compute_router" "router" {
   project = var.project
   name    = "gke-router"
@@ -13,7 +8,7 @@ resource "google_compute_router" "router" {
 resource "google_compute_address" "nat" {
   name   = "nat-ip"
   region = google_compute_router.router.region
-  network_tier = google_compute_project_default_network_tier.default.network_tier
+  network_tier = "PREMIUM"
 }
 
 resource "google_compute_router_nat" "nat" {
