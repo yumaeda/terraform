@@ -98,7 +98,7 @@ gcloud projects get-iam-policy $PROJECT_ID --flatten="bindings[].members"
 ```
 
 ## References
-- https://medium.com/google-cloud/gcp-how-to-deploy-cloud-nat-with-terraform-44745a4daaa8
+- https://cloud.google.com/nat/docs/gke-example#terraform_3
 - https://gist.github.com/palewire/12c4b2b974ef735d22da7493cf7f4d37
 - https://cloud.google.com/docs/terraform/resource-management/store-state
 - https://medium.com/swlh/setup-a-static-website-cdn-with-terraform-on-gcp-23c6937382c6
