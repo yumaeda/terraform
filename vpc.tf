@@ -1,16 +1,23 @@
-module "sakabas-vpc-module" {
-  source       = "terraform-google-modules/network/google"
-  version      = "~> 7.0"
-  project_id   = var.project
-  network_name = "sakabas"
-  mtu          = 1460
-  routing_mode = "REGIONAL"
+resource "google_compute_network" "vpc" {
+  name                    = "sakabas-vpc"
+  auto_create_subnetworks = "false"
+  routing_mode            = "REGIONAL"
+}
 
-  subnets = [
-    {
-      subnet_name   = "subnet-us-central-192"
-      subnet_ip     = "192.168.1.0/24"
-      subnet_region = var.region
-    }
-  ]
+resource "google_compute_subnetwork" "subnet" {
+  name          = "subnet-us-central-192"
+  ip_cidr_range = "192.168.1.0/24"
+  region        = var.region
+  network       = google_compute_network.vpc.id
+}
+
+resource "google_compute_firewall" "rules" {
+  project = var.project
+  name    = "allow-ssh"
+  network = google_compute_network.vpc.id
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+  source_ranges = ["35.235.240.0/20"]
 }
