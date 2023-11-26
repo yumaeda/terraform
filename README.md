@@ -59,7 +59,7 @@ gcloud compute instances list
 ```
 ### Connect to the node
 ```zsh
-gcloud compute ssh {NODE_NAME} \
+gcloud compute ssh $NODE_NAME \
     --zone us-central1-a \
     --tunnel-through-iap
 ```
@@ -69,7 +69,7 @@ pgrep '^kube-dns$'
 ```
 ### Access the container
 ```zsh
-sudo nsenter --target $GOOGLE_PROJECT --net /bin/bash
+sudo nsenter --target $PROCESS_ID --net /bin/bash
 ```
 ### From `kube-dns`, attempt to connect to the internet
 ```zsh
