@@ -1,23 +1,12 @@
-resource "google_compute_network" "vpc" {
-  name                    = "sakabas-vpc"
+resource "google_compute_network" "sakabas_tokyo_vpc" {
+  name                    = "sakabas-tokyo-vpc"
   auto_create_subnetworks = "false"
   routing_mode            = "REGIONAL"
 }
 
-resource "google_compute_subnetwork" "subnet" {
-  name          = "subnet-us-central-192"
-  ip_cidr_range = "192.168.1.0/24"
-  region        = "us-central1"
-  network       = google_compute_network.vpc.id
-}
-
-resource "google_compute_firewall" "rules" {
-  project = var.project
-  name    = "allow-ssh"
-  network = google_compute_network.vpc.id
-  allow {
-    protocol = "tcp"
-    ports    = ["22"]
-  }
-  source_ranges = ["35.235.240.0/20"]
+resource "google_compute_subnetwork" "sakabas_tokyo_subnet" {
+  name          = "subnet-asia-northeast-172"
+  ip_cidr_range = "172.16.1.0/24"
+  region        = var.region
+  network       = google_compute_network.sakabas_tokyo_vpc.id
 }
