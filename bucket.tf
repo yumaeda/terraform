@@ -1,12 +1,12 @@
 provider "google" {
     project = var.project
-    region  = "asia-northeast1"
-    zone    = "asia-northeast1-b"
+    region  = var.region
+    zone    = var.zone
 }
 
 resource "google_storage_bucket" "sakabas_website" {
     name     = "sakabas.com"
-    location = "asia-northeast1"
+    location = var.region
     website {
       main_page_suffix = "index.html"
       not_found_page   = "index.html"
