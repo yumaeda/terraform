@@ -8,17 +8,6 @@ provider "google" {
     zone    = var.zone
 }
 
-# Create a GCS Bucket
-resource "google_storage_bucket" "website" {
-    name     = var.website_domain_name
-    location = var.region
-    website {
-      main_page_suffix = "index.html"
-      not_found_page   = "index.html"
-  }
-}
-
-# Create a GCS Bucket
 resource "google_storage_bucket" "sakabas_website" {
     name     = "sakabas.com"
     location = var.region
@@ -31,13 +20,6 @@ resource "google_storage_bucket" "sakabas_website" {
 # Make new objects public
 resource "google_storage_default_object_access_control" "sakabas_read" {
   bucket = google_storage_bucket.sakabas_website.name
-  role   = "READER"
-  entity = "allUsers"
-}
-
-# Make new objects public
-resource "google_storage_default_object_access_control" "website_read" {
-  bucket = google_storage_bucket.website.name
   role   = "READER"
   entity = "allUsers"
 }
