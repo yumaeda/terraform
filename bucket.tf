@@ -1,16 +1,12 @@
-locals {
-  website_domain_name_dashed = replace(var.website_domain_name, ".", "-")
-}
-
 provider "google" {
     project = var.project
-    region  = var.region
-    zone    = var.zone
+    region  = "asia-northeast1"
+    zone    = "asia-northeast1-b"
 }
 
 resource "google_storage_bucket" "sakabas_website" {
     name     = "sakabas.com"
-    location = var.region
+    location = "asia-northeast1"
     website {
       main_page_suffix = "index.html"
       not_found_page   = "index.html"
