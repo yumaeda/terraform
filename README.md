@@ -81,11 +81,11 @@ curl example.com
 ## Misc
 - Get an unique identifier of the workload identity pool
 ```zsh
-gcloud iam workload-identity-pools describe "github" --location="global" --format="value(name)"
+gcloud iam workload-identity-pools describe "github-pool-3" --location="global" --format="value(name)"
 ```
 - Get an unique identifier of the provider
 ```zsh
-gcloud iam workload-identity-pools providers describe "github" --location="global" --workload-identity-pool="github" --format="
+gcloud iam workload-identity-pools providers describe "github-provider" --location="global" --workload-identity-pool="github-pool-3" --format="
 value(name)"
 ```
 - Print out the permissions
