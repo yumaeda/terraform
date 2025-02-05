@@ -3,9 +3,8 @@ Contains Terraform configuration files
 
 ## Preparation
 ### Install Terraform
-```zsh
-brew install terraform
-```
+- Follow [instructions](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli#install-terraform) in the HashiCorp Developer website
+
 ### Export project ID
 ```zsh
 export GOOGLE_PROJECT={PROJECT_ID}
