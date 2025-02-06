@@ -4,12 +4,23 @@ variable "project" {
 }
 
 variable "region" {
-    description = "Google Cloud region"
-    type        = string
-    default     = "asia-northeast1"
+  description = "Google Cloud region"
+  type        = string
+  default     = "asia-northeast1"
+}
+
+variable "cloudflare_email" {
+  description = "Cloudflare account email"
+  type        = string
+  default     = "yumaeda@gmail.com"
 }
 
 variable "cloudflare_api_key" {
-    description = "Cloudflare API key"
-    type        = string
+  description = "Cloudflare API key"
+  type        = string
+}
+
+variable "cloudflare_zone_id" {
+  description = "Cloudflare Zone ID"
+  type        = string
 }
