@@ -24,3 +24,7 @@ terraform plan
 ```zsh
 terraform apply
 ```
+
+# Reference
+- https://community.cloudflare.com/t/google-cloud-storage-private-access/389280
+
